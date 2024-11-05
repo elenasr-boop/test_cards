@@ -2,15 +2,16 @@ import { Outlet } from "react-router-dom";
 import { Header } from "../components/Header";
 import { useEffect, useState } from "react";
 import { getCharacters } from "../api";
-import { characterType } from "../types/characterType";
+import { characterFromApi, characterType } from "../types/characterType";
 
 export function Products() {
   const [characters, setCharacters] = useState<characterType[]>([]);
 
   useEffect(() => {
     getCharacters().then((res) => {
+      console.log(res);
       if (Array.isArray(res.data)) {
-        const newCharacters = res.data.map(el => ({
+        const newCharacters = res.data.map((el: characterFromApi) => ({
           _id: el._id,
           name: el.name,
           image: el.imageUrl,
@@ -27,7 +28,7 @@ export function Products() {
     }).catch((e) => {
       console.error(e);
     })
-  }, [characters]);
+  }, []);
 
   return (
     <div className=" h-[100vh] m-auto bg-[#202020] text-[#CD63FF] pr-48 pl-48 pt-10">
