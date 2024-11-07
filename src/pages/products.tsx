@@ -1,11 +1,14 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "../components/Header";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getCharacters } from "../api";
-import { characterFromApi, characterType } from "../types/characterType";
+import { characterFromApi } from "../types/characterType";
+import { useAppDispatch, useAppSelector } from "../store/store";
+import { setCards } from "../store/features/cardsSlice";
 
 export function Products() {
-  const [characters, setCharacters] = useState<characterType[]>([]);
+  const characters = useAppSelector(state => state.cards);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     getCharacters().then((res) => {
@@ -21,7 +24,7 @@ export function Products() {
           isLiked: false,
           apiUrl: el.url,
         }));
-        setCharacters(newCharacters);
+        dispatch(setCards(newCharacters));
       } else {
         throw new Error ('Error fetching characters');
       }
