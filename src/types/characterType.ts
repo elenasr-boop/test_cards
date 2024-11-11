@@ -6,7 +6,6 @@ export type characterType = {
   name: string;
   image: string;
   isLiked: boolean;
-  apiUrl: string;
 };
 
 export type characterFromApi = {
