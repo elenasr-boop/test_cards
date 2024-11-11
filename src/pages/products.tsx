@@ -25,6 +25,7 @@ export function Products() {
             url: el.sourceUrl,
             isLiked: false,
             apiUrl: el.url,
+            tvShows: el.tvShows,
           }));
           dispatch(setCards(newCharacters));
         } else {

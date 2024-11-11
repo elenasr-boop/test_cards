@@ -12,6 +12,7 @@ export function CreateProduct() {
     name: "",
     videoGames: "",
     films: "",
+    tvShows: "",
     url: "",
   })
 
@@ -39,28 +40,27 @@ export function CreateProduct() {
   function createCharacter () {
     if (image !== "" && cardData.name !== "" && cardData.url !== "") {
       setError(false);
-      console.log("Создается персонаж");
       dispatch(addCard({
         name: cardData.name,
-        videoGames: cardData.videoGames.split(";"),
-        films: cardData.films.split(";"),
+        videoGames: cardData.videoGames.trim() === "" ? [] : cardData.videoGames.split(";"),
+        films: cardData.films.trim() === "" ? [] : cardData.films.split(";"),
         url: cardData.url,
         isLiked: false,
         image: image,
-        _id: Math.random()*15 + 1000,
+        tvShows: cardData.tvShows.trim() === "" ? [] : cardData.tvShows.split(";"),
+        _id: Math.round(Math.random()*1000) + 1000,
       }));
       navigate("/");
     } else {
-      console.log("Какая-то ошибка");
       setError(true);
     }
   }
 
   return (
     <div className="create-product h-[100%] w-[100%] min-w-[375px] min-h-[100vh] absolute top-0 left-0 z-10">
-      <div className="create-product-container w-[100%] h-[100%] flex justify-center items-center bg-black bg-opacity-40">
+      <div className="create-product-container w-[100%] h-[100%] flex justify-center items-center bg-black bg-opacity-60">
         <div className="w-[70vw] h-[70vh] content border-[3px] border-solid border-[#CD63FF] rounded-3xl bg-gray-200 p-10 flex flex-col justify-between">
-          <h2 className="text-lg font-bold">Создание персонажа</h2>
+          <h2 className="text-lg font-bold">Creating character</h2>
           <div className="inputs flex flex-wrap gap-3">
             <div className="img">
               <input
@@ -88,16 +88,23 @@ export function CreateProduct() {
             />
             <input
               type="text"
-              placeholder="В каких фильмах появляется этот персонаж?"
+              placeholder="В каких фильмах он/а появляется?"
               name="films"
               value={cardData.films} 
               onChange={handleInputChange}
             />
             <input
               type="text"
-              placeholder="В каких играх появляется этот персонаж?"
+              placeholder="В каких играх он/а появляется?"
               name="videoGames"
               value={cardData.videoGames} 
+              onChange={handleInputChange}
+            />
+            <input
+              type="text"
+              placeholder="В каких тв-шоу он/а появляется?"
+              name="tvShows"
+              value={cardData.tvShows} 
               onChange={handleInputChange}
             />
           </div>
@@ -105,11 +112,11 @@ export function CreateProduct() {
           {error && <div className="text-[#B3041C]">Выделенные поля обязательны для заполнения</div>}
 
           <div className="buttons flex justify-between">
-            <button onClick={() => createCharacter()} className="bg-[#FAEFFF]">
-              Создать персонажа
+            <button onClick={() => createCharacter()} >
+              Create character
             </button>
-            <button className="bg-[#FAEFFF]">
-              <Link to="/">Отмена</Link>
+            <button>
+              <Link to="/">Back</Link>
             </button>
           </div>
         </div>

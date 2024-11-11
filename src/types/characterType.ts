@@ -6,6 +6,7 @@ export type characterType = {
   name: string;
   image: string;
   isLiked: boolean;
+  tvShows: string[];
 };
 
 export type characterFromApi = {

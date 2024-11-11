@@ -7,5 +7,5 @@ input {
 }
 
 button {
-    @apply border-[3px] border-[#CD63FF] rounded-full p-[10px] pt-[5px] pb-[5px];
+    @apply border-[3px] border-[#CD63FF] rounded-full p-[10px] pt-[5px] pb-[5px] bg-[#FAEFFF];
 }

@@ -7,15 +7,15 @@ export function Header() {
         type="text"
         className="w-3/5"
       />
-      <button><Link to="create-product">Создать новую карточку</Link></button>
+      <button><Link to="create-product">Create new card</Link></button>
       <select
         id="options"
         name="options"
         className="border-[3px] border-solid border-[#CD63FF] rounded-full h-10 p-[5px]"
       >
-        <option value="option1">Опция 1</option>
-        <option value="option2">Опция 2</option>
-        <option value="option3">Опция 3</option>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
       </select>
     </div>
   );
