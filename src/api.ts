@@ -1,4 +1,4 @@
-const BASE_URL = "http://api.disneyapi.dev/character?page=1&pageSize=50L";
+const BASE_URL = "http://api.disneyapi.dev/character";
 
 export async function getCharacters() {
   const res = await fetch(BASE_URL, {
