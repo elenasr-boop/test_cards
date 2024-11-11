@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppSelector } from "../store/store";
+import { useAppDispatch, useAppSelector } from "../store/store";
 import { characterType } from "../types/characterType";
+import { changeLike } from "../store/features/cardsSlice";
 
 export function Product() {
   const { id } = useParams();
@@ -11,9 +12,14 @@ export function Product() {
     card = characters.find((card) => card._id === parseInt(id));
   } else {
     navigate("thisPageIsNotFound");
-  }
+  }  
+  const dispatch = useAppDispatch();
 
   if (card !== undefined) {
+    const handleLikeClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+      dispatch(changeLike(card._id));
+    };
     return (
       <div className="product absolute w-[100vw] h-screen top-0 left-0 bg-[] bg-black bg-opacity-60 flex justify-center items-center">
         <div className="w-[70vw] h-[70vh] border-[3px] border-solid border-[#CD63FF] rounded-3xl  bg-gray-200 p-10 flex flex-col justify-between">
@@ -54,10 +60,21 @@ export function Product() {
                 </ul>
               </div>
             )}
-            <p className="font-bold">Link: <a href={card.url} target="_blank" rel="noopener noreferrer">{card.url}</a></p>
+            <p className="font-bold overflow-hidden whitespace-nowrap text-ellipsis">
+              Link:{" "}
+              <a href={card.url} target="_blank" rel="noopener noreferrer">
+                {card.url}
+              </a>
+            </p>
           </div>
           <div className="buttons flex justify-between">
-            <button>Like</button>
+            <div onClick={handleLikeClick}>
+              <img
+                src={card.isLiked ? "/like-active.svg" : "/like-not-active.svg"}
+                alt="like"
+                className="w-10 h-10 fill-white scale-image"
+              />
+            </div>
             <button onClick={() => navigate("/")}>Back</button>
           </div>
         </div>
