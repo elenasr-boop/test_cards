@@ -10,6 +10,9 @@ const cardsSlice = createSlice({
     setCards: (state, action: PayloadAction<characterType[]>) => {
       return action.payload;
     },
+    addCard: (state, action: PayloadAction<characterType>) => {
+      state.unshift(action.payload);
+    },
     changeLike: (state, action: PayloadAction<number>) => {
         const id = action.payload;
         const thisCard = state.findIndex(card => card._id === id);
@@ -21,5 +24,5 @@ const cardsSlice = createSlice({
   },
 });
 
-export const { setCards, changeLike } = cardsSlice.actions;
+export const { setCards, addCard, changeLike } = cardsSlice.actions;
 export const cardsReducer = cardsSlice.reducer;

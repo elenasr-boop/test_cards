@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 input {
-    @apply rounded-full border-[3px] border-solid border-[#CD63FF] h-10 p-2 pl-3 min-w-[50%];
+    @apply rounded-full border-[3px] border-solid border-[#CD63FF] h-10 p-2 pl-3 min-w-[40%];
 }
 
 button {

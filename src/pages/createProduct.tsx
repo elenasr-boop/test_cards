@@ -1,8 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { addCard } from "../store/features/cardsSlice";
 
 export function CreateProduct() {
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<string>("");
+  const [error, setError] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [cardData, setCardData] = useState({
     name: "",
     videoGames: "",
@@ -28,7 +33,28 @@ export function CreateProduct() {
         ...cardData,
         [name]: value,
     });
+    setError(false);
   } 
+
+  function createCharacter () {
+    if (image !== "" && cardData.name !== "" && cardData.url !== "") {
+      setError(false);
+      console.log("Создается персонаж");
+      dispatch(addCard({
+        name: cardData.name,
+        videoGames: cardData.videoGames.split(";"),
+        films: cardData.films.split(";"),
+        url: cardData.url,
+        isLiked: false,
+        image: image,
+        _id: Math.random()*15 + 1000,
+      }));
+      navigate("/");
+    } else {
+      console.log("Какая-то ошибка");
+      setError(true);
+    }
+  }
 
   return (
     <div className="create-product h-[100%] w-[100%] min-w-[375px] min-h-[100vh] absolute top-0 left-0 z-10">
@@ -41,9 +67,9 @@ export function CreateProduct() {
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
-                className="bg-[#FAEFFF] pt-1"
+                className={`bg-[#FAEFFF] pt-1 ${image === "" ? "border-[#B3041C]" : ""}`}
               />
-              {image && (
+              {image !== "" && (
                 <img
                   src={image}
                   alt="Uploaded image"
@@ -51,13 +77,14 @@ export function CreateProduct() {
                 />
               )}
             </div>
-            <input type="text" placeholder="Имя персонажа" name="name" value={cardData.name} onChange={handleInputChange} />
+            <input type="text" placeholder="Имя персонажа" name="name" value={cardData.name} onChange={handleInputChange} className={`${cardData.name === "" ? "border-[#B3041C]" : ""}`} />
             <input
               type="text"
               placeholder="Вставьте ссылку на страницу по этому персонажу"
               name="url"
               value={cardData.url} 
               onChange={handleInputChange}
+              className={`${cardData.url === "" ? "border-[#B3041C]" : ""}`}
             />
             <input
               type="text"
@@ -75,8 +102,10 @@ export function CreateProduct() {
             />
           </div>
 
+          {error && <div className="text-[#B3041C]">Выделенные поля обязательны для заполнения</div>}
+
           <div className="buttons flex justify-between">
-            <button onClick={() => console.log("Создается персонаж", cardData)} className="bg-[#FAEFFF]">
+            <button onClick={() => createCharacter()} className="bg-[#FAEFFF]">
               Создать персонажа
             </button>
             <button className="bg-[#FAEFFF]">

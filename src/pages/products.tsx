@@ -12,26 +12,28 @@ export function Products() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getCharacters().then((res) => {
-      console.log(res);
-      if (Array.isArray(res.data)) {
-        const newCharacters = res.data.map((el: characterFromApi) => ({
-          _id: el._id,
-          name: el.name,
-          image: el.imageUrl,
-          films: el.films,
-          videoGames: el.videoGames,
-          url: el.sourceUrl,
-          isLiked: false,
-          apiUrl: el.url,
-        }));
-        dispatch(setCards(newCharacters));
-      } else {
-        throw new Error ('Error fetching characters');
-      }
-    }).catch((e) => {
-      console.error(e);
-    })
+    if (characters.length === 0) {
+      getCharacters().then((res) => {
+        console.log(res);
+        if (Array.isArray(res.data)) {
+          const newCharacters = res.data.map((el: characterFromApi) => ({
+            _id: el._id,
+            name: el.name,
+            image: el.imageUrl,
+            films: el.films,
+            videoGames: el.videoGames,
+            url: el.sourceUrl,
+            isLiked: false,
+            apiUrl: el.url,
+          }));
+          dispatch(setCards(newCharacters));
+        } else {
+          throw new Error ('Error fetching characters');
+        }
+      }).catch((e) => {
+        console.error(e);
+      })
+    }
   }, [dispatch]);
 
   return (
