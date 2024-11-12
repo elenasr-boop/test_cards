@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { characterType } from "../types/characterType";
 import { useAppDispatch } from "../store/store";
-import { changeLike } from "../store/features/cardsSlice";
+import { changeLike, deleteCard } from "../store/features/cardsSlice";
 
 type CardProps = {
   card: characterType;
@@ -12,6 +12,10 @@ export function Card({ card }: CardProps) {
   const handleLikeClick = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch(changeLike(card._id));
+  };
+  const handleDeleteClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    dispatch(deleteCard(card._id));
   };
 
   return (
@@ -27,12 +31,17 @@ export function Card({ card }: CardProps) {
         alt={card.name}
         className="w-[140px] h-[140px] object-cover rounded-full"
       />
-      <div onClick={handleLikeClick}>
-        <img
-          src={card.isLiked ? "/like-active.svg" : "/like-not-active.svg"}
-          alt="like"
-          className="w-4 h-4 fill-white scale-image"
-        />
+      <div className="buttons flex flex-row justify-between">
+        <div onClick={handleLikeClick}>
+          <img
+            src={card.isLiked ? "/like-active.svg" : "/like-not-active.svg"}
+            alt="like"
+            className="w-4 h-4 scale-image"
+          />
+        </div>
+        <div onClick={handleDeleteClick}>
+          <img src="/trash.svg" alt="Delete card" className="w-4 h-4 scale-image" />
+        </div>
       </div>
     </Link>
   );
