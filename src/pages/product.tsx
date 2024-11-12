@@ -5,7 +5,7 @@ import { changeLike, deleteCard } from "../store/features/cardsSlice";
 
 export function Product() {
   const { id } = useParams();
-  const characters = useAppSelector((state) => state.cards);
+  const characters = useAppSelector((state) => state.cards.products);
   const navigate = useNavigate();
   let card: characterType | undefined = undefined;
   if (id !== undefined) {
