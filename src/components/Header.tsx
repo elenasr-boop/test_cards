@@ -13,9 +13,9 @@ export function Header() {
         name="options"
         className="border-[3px] border-solid border-[#CD63FF] rounded-full h-10 p-[5px]"
       >
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
+        <option value="option1">Alphabet</option>
+        <option value="option2">Films</option>
+        <option value="option3">TV shows</option>
       </select>
     </div>
   );

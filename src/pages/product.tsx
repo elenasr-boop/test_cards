@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { characterType } from "../types/characterType";
-import { changeLike } from "../store/features/cardsSlice";
+import { changeLike, deleteCard } from "../store/features/cardsSlice";
 
 export function Product() {
   const { id } = useParams();
@@ -12,7 +12,7 @@ export function Product() {
     card = characters.find((card) => card._id === parseInt(id));
   } else {
     navigate("thisPageIsNotFound");
-  }  
+  }
   const dispatch = useAppDispatch();
 
   if (card !== undefined) {
@@ -20,6 +20,12 @@ export function Product() {
       e.preventDefault();
       dispatch(changeLike(card._id));
     };
+
+    const handleDeleteClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+      dispatch(deleteCard(card._id));
+    };
+
     return (
       <div className="product absolute w-[100vw] h-screen top-0 left-0 bg-[] bg-black bg-opacity-60 flex justify-center items-center">
         <div className="w-[70vw] h-[70vh] border-[3px] border-solid border-[#CD63FF] rounded-3xl  bg-gray-200 p-10 flex flex-col justify-between">
@@ -73,6 +79,13 @@ export function Product() {
                 src={card.isLiked ? "/like-active.svg" : "/like-not-active.svg"}
                 alt="like"
                 className="w-10 h-10 fill-white scale-image"
+              />
+            </div>
+            <div onClick={handleDeleteClick}>
+              <img
+                src="/trash.svg"
+                alt="Delete card"
+                className="w-10 h-10 scale-image"
               />
             </div>
             <button onClick={() => navigate("/")}>Back</button>

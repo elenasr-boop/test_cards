@@ -20,9 +20,14 @@ const cardsSlice = createSlice({
         if (thisCard !== -1) {
             state[thisCard].isLiked = !state[thisCard].isLiked;
         }
+    },
+    deleteCard: (state, action: PayloadAction <number>) => {
+      const id = action.payload;
+      const newArr = state.filter(card => card._id !== id);
+      return newArr;
     }
   },
 });
 
-export const { setCards, addCard, changeLike } = cardsSlice.actions;
+export const { setCards, addCard, changeLike, deleteCard } = cardsSlice.actions;
 export const cardsReducer = cardsSlice.reducer;
