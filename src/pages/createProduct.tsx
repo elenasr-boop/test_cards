@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { addCard } from "../store/features/cardsSlice";
+import { isValidUrl, safeString } from "../helpers";
 
 export function CreateProduct() {
   const [image, setImage] = useState<string>("");
@@ -38,16 +39,16 @@ export function CreateProduct() {
   } 
 
   function createCharacter () {
-    if (image !== "" && cardData.name !== "" && cardData.url !== "") {
+    if (image !== "" && cardData.name !== "" && cardData.url !== "" && isValidUrl(cardData.url)) {
       setError(false);
       dispatch(addCard({
-        name: cardData.name,
-        videoGames: cardData.videoGames.trim() === "" ? [] : cardData.videoGames.split(";"),
-        films: cardData.films.trim() === "" ? [] : cardData.films.split(";"),
+        name: safeString(cardData.name),
+        videoGames: cardData.videoGames.trim() === "" ? [] : safeString(cardData.videoGames).split(";"),
+        films: cardData.films.trim() === "" ? [] : safeString(cardData.films).split(";"),
         url: cardData.url,
         isLiked: false,
         image: image,
-        tvShows: cardData.tvShows.trim() === "" ? [] : cardData.tvShows.split(";"),
+        tvShows: cardData.tvShows.trim() === "" ? [] : safeString(cardData.tvShows).split(";"),
         _id: Math.round(Math.random()*1000) + 1000,
       }));
       navigate("/");
@@ -67,7 +68,7 @@ export function CreateProduct() {
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
-                className={`bg-[#FAEFFF] pt-1 ${image === "" ? "border-[#B3041C]" : ""}`}
+                className={`bg-[#FAEFFF] pt-1 ${image === "" && error ? "border-[#B3041C]" : ""}`}
               />
               {image !== "" && (
                 <img
@@ -77,14 +78,14 @@ export function CreateProduct() {
                 />
               )}
             </div>
-            <input type="text" placeholder="Имя персонажа" name="name" value={cardData.name} onChange={handleInputChange} className={`${cardData.name === "" ? "border-[#B3041C]" : ""}`} />
+            <input type="text" placeholder="Имя персонажа" name="name" value={cardData.name} onChange={handleInputChange} className={`${cardData.name === "" && error ? "border-[#B3041C]" : ""}`} />
             <input
-              type="text"
+              type="url"
               placeholder="Вставьте ссылку на страницу по этому персонажу"
               name="url"
               value={cardData.url} 
               onChange={handleInputChange}
-              className={`${cardData.url === "" ? "border-[#B3041C]" : ""}`}
+              className={`${!isValidUrl(cardData.url) && error ? "border-[#B3041C]" : ""}`}
             />
             <input
               type="text"
@@ -109,7 +110,7 @@ export function CreateProduct() {
             />
           </div>
 
-          {error && <div className="text-[#B3041C]">Выделенные поля обязательны для заполнения</div>}
+          {error && <div className="text-[#B3041C]">Выделенные поля обязательны для заполнения{!isValidUrl(cardData.url) && ", введенная ссылка должна быть рабочей"}</div>}
 
           <div className="buttons flex justify-between">
             <button onClick={() => createCharacter()} >
