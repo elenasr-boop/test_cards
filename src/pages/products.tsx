@@ -27,6 +27,9 @@ export function Products() {
     case "tvShows":
       filteredCharacters = characters.filter((card) => card.tvShows.length > 0);
       break;
+    case "likes": 
+      filteredCharacters = characters.filter(card => card.isLiked === true)
+      break;
     default:
       filteredCharacters = characters;
       break;

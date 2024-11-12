@@ -26,6 +26,7 @@ export function Header() {
         <option value="films">Films</option>
         <option value="tvShows">TV shows</option>
         <option value="games">VideoGames</option>
+        <option value="likes">Like</option>
       </select>
     </div>
   );
