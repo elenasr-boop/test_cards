@@ -1,12 +1,49 @@
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../store/store";
-import { filtration } from "../store/features/cardsSlice";
+import { filtration, setCards } from "../store/features/cardsSlice";
+import { useState } from "react";
+import { searchBy } from "../api";
+import { characterFromApi } from "../types/characterType";
 
 export function Header() {
   const dispatch = useAppDispatch();
+  const [request, setRequest] = useState("");
 
-  function filterBy (e: React.ChangeEvent<HTMLSelectElement>) {
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setRequest(e.target.value);
+  }
+
+  function filterBy(e: React.ChangeEvent<HTMLSelectElement>) {
     dispatch(filtration(e.target.value));
+  }
+
+  async function search() {
+    console.log("Выполняю поиск по запросу ", request);
+    searchBy(request).then((res) => {
+      console.log(res);
+      if (Array.isArray(res.data)) {
+        const newCharacters = res.data.map((el: characterFromApi) => ({
+          _id: el._id,
+          name: el.name,
+          image: el.imageUrl,
+          films: el.films,
+          videoGames: el.videoGames,
+          url: el.sourceUrl,
+          isLiked: false,
+          apiUrl: el.url,
+          tvShows: el.tvShows,
+        }));
+        dispatch(setCards(newCharacters));
+      } else {
+        throw new Error("Error fetching characters");
+      }
+    });
+  }
+
+  function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      search();
+    }
   }
 
   return (
@@ -14,8 +51,13 @@ export function Header() {
       <input
         type="text"
         className="w-3/5"
+        placeholder="Search"
+        onChange={handleInputChange}
+        onKeyUp={handleKeyPress}
       />
-      <button><Link to="create-product">Create new card</Link></button>
+      <button>
+        <Link to="create-product">Create new card</Link>
+      </button>
       <select
         id="filter"
         name="filter"
