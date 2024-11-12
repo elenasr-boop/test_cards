@@ -27,8 +27,8 @@ export function Products() {
     case "tvShows":
       filteredCharacters = characters.filter((card) => card.tvShows.length > 0);
       break;
-    case "likes": 
-      filteredCharacters = characters.filter(card => card.isLiked === true)
+    case "likes":
+      filteredCharacters = characters.filter((card) => card.isLiked === true);
       break;
     default:
       filteredCharacters = characters;
@@ -67,9 +67,15 @@ export function Products() {
     <div className=" h-[100vh] m-auto bg-[#202020] text-[#CD63FF] pr-48 pl-48 pt-10">
       <Header />
       <div className="cards flex justify-between flex-wrap gap-6 overflow-auto h-[calc(100%-120px)]">
-        {filteredCharacters.map((el) => {
-          return <Card card={el} key={el._id} />;
-        })}
+        {filteredCharacters.length > 0 ? (
+          filteredCharacters.map((el) => {
+            return <Card card={el} key={el._id} />;
+          })
+        ) : (
+          <div className="flex justify-center items-center h-[100%] w-[100%] text-center">
+            <p>No characters found</p>
+          </div>
+        )}
       </div>
       <Outlet />
     </div>
