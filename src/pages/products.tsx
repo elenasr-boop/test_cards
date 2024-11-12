@@ -64,9 +64,9 @@ export function Products() {
   }, [dispatch]);
 
   return (
-    <div className=" h-[100vh] m-auto bg-[#202020] text-[#CD63FF] pr-48 pl-48 pt-10">
+    <div className=" min-h-[100vh] m-auto bg-[#202020] text-[#CD63FF] pr-8 pl-8 lg:pr-48 lg:pl-48 pt-10">
       <Header />
-      <div className="cards flex justify-between flex-wrap gap-6 overflow-auto h-[calc(100%-120px)]">
+      <main className="cards flex justify-center md:justify-between lg:justify-between flex-wrap gap-6 overflow-auto lg:h-[calc(100%-120px)]">
         {filteredCharacters.length > 0 ? (
           filteredCharacters.map((el) => {
             return <Card card={el} key={el._id} />;
@@ -76,7 +76,7 @@ export function Products() {
             <p>No characters found</p>
           </div>
         )}
-      </div>
+      </main>
       <Outlet />
     </div>
   );

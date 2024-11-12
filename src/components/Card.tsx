@@ -21,14 +21,14 @@ export function Card({ card }: CardProps) {
   return (
     <Link
       to={`${card._id}`}
-      className="w-[180px] h-[230px] gap-2 flex flex-col border-[3px] border-solid border-[#CD63FF] p-4 text-ellipsis rounded-2xl"
+      className="w-[180px] h-[240px] gap-2 flex flex-col border-[3px] border-solid border-[#CD63FF] p-4 text-ellipsis rounded-2xl"
     >
       <p className="overflow-hidden whitespace-nowrap text-ellipsis">
         {card.name}
       </p>
       <img
         src={card.image}
-        alt={card.name}
+        alt=""
         className="w-[140px] h-[140px] object-cover rounded-full"
       />
       <div className="buttons flex flex-row justify-between">
@@ -36,11 +36,11 @@ export function Card({ card }: CardProps) {
           <img
             src={card.isLiked ? "/like-active.svg" : "/like-not-active.svg"}
             alt="like"
-            className="w-4 h-4 scale-image"
+            className="w-6 h-6 scale-image"
           />
         </div>
         <div onClick={handleDeleteClick}>
-          <img src="/trash.svg" alt="Delete card" className="w-4 h-4 scale-image" />
+          <img src="/trash.svg" alt="Delete card" className="w-6 h-6 scale-image" />
         </div>
       </div>
     </Link>

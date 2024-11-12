@@ -27,13 +27,13 @@ export function Product() {
     };
 
     return (
-      <div className="product absolute w-[100vw] h-screen top-0 left-0 bg-[] bg-black bg-opacity-60 flex justify-center items-center">
-        <div className="w-[70vw] h-[70vh] border-[3px] border-solid border-[#CD63FF] rounded-3xl  bg-gray-200 p-10 flex flex-col justify-between">
-          <div className="grid grid-cols-2 grid-rows-4">
+      <div className="product absolute w-[100vw] h-[100%] top-0 left-0 bg-black bg-opacity-60 flex justify-center items-center">
+        <div className="h-[90vh] w-[70vw] md:h-[70vh] border-[3px] border-solid border-[#CD63FF] rounded-3xl  bg-gray-200 p-10 flex flex-col justify-between">
+          <div className="flex flex-col md:grid grid-cols-2 grid-rows-4">
             <img
               src={card.image}
               alt={card.name}
-              className="row-span-4 w-[300px] h-[300px] object-cover rounded-full"
+              className="row-span-4 w-[200px] h-[200px] lg:w-[300px] lg:h-[300px] object-cover rounded-full"
             />
             <p className="text-2xl font-bold">{card.name}</p>
             {card.films.length !== 0 && (

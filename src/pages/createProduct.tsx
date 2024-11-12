@@ -60,7 +60,7 @@ export function CreateProduct() {
   return (
     <div className="create-product h-[100%] w-[100%] min-w-[375px] min-h-[100vh] absolute top-0 left-0 z-10">
       <div className="create-product-container w-[100%] h-[100%] flex justify-center items-center bg-black bg-opacity-60">
-        <div className="w-[70vw] h-[70vh] content border-[3px] border-solid border-[#CD63FF] rounded-3xl bg-gray-200 p-10 flex flex-col justify-between">
+        <div className="w-[70vw] h-[90vh] md:h-[70vh] content border-[3px] border-solid border-[#CD63FF] rounded-3xl bg-gray-200 p-10 flex flex-col justify-between">
           <h2 className="text-lg font-bold">Creating character</h2>
           <div className="inputs flex flex-wrap gap-3">
             <div className="img">
@@ -68,13 +68,13 @@ export function CreateProduct() {
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
-                className={`bg-[#FAEFFF] pt-1 ${image === "" && error ? "border-[#B3041C]" : ""}`}
+                className={`bg-[#FAEFFF] pt-1 ${image === "" && error ? "border-[#B3041C]" : ""} max-w-[47vw]`}
               />
               {image !== "" && (
                 <img
                   src={image}
                   alt="Uploaded image"
-                  className="w-[130px] h-[130px] object-cover rounded-full"
+                  className="w-[80px] h-[80px] lg:w-[130px] lg:h-[130px] object-cover rounded-full"
                 />
               )}
             </div>
@@ -110,7 +110,7 @@ export function CreateProduct() {
             />
           </div>
 
-          {error && <div className="text-[#B3041C]">Выделенные поля обязательны для заполнения{!isValidUrl(cardData.url) && ", введенная ссылка должна быть рабочей"}</div>}
+          {error && <div className="text-[#B3041C] hidden lg:block ">Выделенные поля обязательны для заполнения{!isValidUrl(cardData.url) && ", введенная ссылка должна быть рабочей"}</div>}
 
           <div className="buttons flex justify-between">
             <button onClick={() => createCharacter()} >

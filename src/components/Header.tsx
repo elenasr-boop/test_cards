@@ -47,7 +47,7 @@ export function Header() {
   }
 
   return (
-    <div className="h-20 flex justify-between items-center">
+    <header className="mb-7 flex flex-col lg:flex-row md:flex-row gap-2 justify-between items-center">
       <input
         type="text"
         className="w-3/5"
@@ -63,6 +63,7 @@ export function Header() {
         name="filter"
         className="border-[3px] border-solid border-[#CD63FF] rounded-full h-10 p-[5px]"
         onChange={filterBy}
+        aria-label="Filter by:"
       >
         <option value="all">All</option>
         <option value="films">Films</option>
@@ -70,6 +71,6 @@ export function Header() {
         <option value="games">VideoGames</option>
         <option value="likes">Like</option>
       </select>
-    </div>
+    </header>
   );
 }
