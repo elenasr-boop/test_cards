@@ -40,5 +40,6 @@ const cardsSlice = createSlice({
   },
 });
 
-export const { setCards, addCard, changeLike } = cardsSlice.actions;
+export const { setCards, addCard, changeLike, deleteCard, filtration } =
+  cardsSlice.actions;
 export const cardsReducer = cardsSlice.reducer;
