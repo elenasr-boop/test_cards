@@ -6,34 +6,13 @@ import { characterFromApi, characterType } from "../types/characterType";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { setCards } from "../store/features/cardsSlice";
 import { Card } from "../components/Card";
+import { getFilteredCharacter } from "../helpers";
 
 export function Products() {
   const characters = useAppSelector((state) => state.cards.products);
   const filter = useAppSelector((state) => state.cards.filter);
   const dispatch = useAppDispatch();
-  let filteredCharacters: characterType[] = [];
-  switch (filter) {
-    case "all":
-      filteredCharacters = characters;
-      break;
-    case "films":
-      filteredCharacters = characters.filter((card) => card.films.length > 0);
-      break;
-    case "games":
-      filteredCharacters = characters.filter(
-        (card) => card.videoGames.length > 0
-      );
-      break;
-    case "tvShows":
-      filteredCharacters = characters.filter((card) => card.tvShows.length > 0);
-      break;
-    case "likes":
-      filteredCharacters = characters.filter((card) => card.isLiked === true);
-      break;
-    default:
-      filteredCharacters = characters;
-      break;
-  }
+  const filteredCharacters = getFilteredCharacter(filter, characters);
 
   useEffect(() => {
     if (characters.length === 0) {

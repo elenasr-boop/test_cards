@@ -1,3 +1,5 @@
+import { characterType } from "./types/characterType";
+
 export function safeString(str: string): string {
   return str
     .replaceAll("&", "&amp;")
@@ -18,4 +20,32 @@ export function isValidUrl(url: string): boolean {
   );
 
   return regex.test(url);
+}
+
+export function getFilteredCharacter (filter: string, characters: characterType[]): characterType[] {
+  let filteredCharacters: characterType[] = [];
+  switch (filter) {
+    case "all":
+      filteredCharacters = characters;
+      break;
+    case "films":
+      filteredCharacters = characters.filter((card) => card.films.length > 0);
+      break;
+    case "games":
+      filteredCharacters = characters.filter(
+        (card) => card.videoGames.length > 0
+      );
+      break;
+    case "tvShows":
+      filteredCharacters = characters.filter((card) => card.tvShows.length > 0);
+      break;
+    case "likes":
+      filteredCharacters = characters.filter((card) => card.isLiked === true);
+      break;
+    default:
+      filteredCharacters = characters;
+      break;
+  }
+
+  return filteredCharacters;
 }
