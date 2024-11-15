@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { characterType } from "../types/characterType";
-import { useAppDispatch } from "../store/store";
-import { changeLike, deleteCard } from "../store/features/cardsSlice";
+import { characterType } from "../../types/characterType";
+import { useAppDispatch } from "../../store/store";
+import { changeLike, deleteCard } from "../../store/features/cardsSlice";
 
 type CardProps = {
   card: characterType;

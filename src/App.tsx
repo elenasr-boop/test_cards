@@ -1,8 +1,8 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { NotFound } from "./pages/notFound";
-import { Products } from "./pages/products";
-import { Product } from "./pages/product";
-import { CreateProduct } from "./pages/createProduct";
+import { NotFound } from "./pages/notFound/notFound";
+import { Products } from "./pages/products/products";
+import { Product } from "./pages/product/product";
+import { CreateProduct } from "./pages/createProduct/createProduct";
 
 function App() {
   return (
