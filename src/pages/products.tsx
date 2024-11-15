@@ -17,8 +17,8 @@ export function Products() {
     if (characters.length === 0) {
       getCharacters()
         .then((res) => {
-          if (Array.isArray(res.data)) {
-            dispatch(setCards(arrayTransformation(res.data)));
+          if (Array.isArray(res)) {
+            dispatch(setCards(arrayTransformation(res)));
           } else {
             throw new Error("Error fetching characters");
           }

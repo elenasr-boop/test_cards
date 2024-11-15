@@ -19,11 +19,13 @@ export function Header() {
 
   async function search() {
     searchBy(request).then((res) => {
-      if (Array.isArray(res.data)) {
-        dispatch(setCards(arrayTransformation(res.data)));
+      if (Array.isArray(res)) {
+        dispatch(setCards(arrayTransformation(res)));
       } else {
         throw new Error("Error fetching characters");
       }
+    }).catch((e) => {
+      console.error(e);
     });
   }
 
