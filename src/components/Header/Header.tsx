@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "../store/store";
-import { filtration, setCards } from "../store/features/cardsSlice";
+import { useAppDispatch } from "../../store/store";
+import { filtration, setCards } from "../../store/features/cardsSlice";
 import { useState } from "react";
-import { searchBy } from "../api";
-import { arrayTransformation } from "../helpers";
+import { searchBy } from "../../api";
+import { arrayTransformation } from "../../helpers";
 
 export function Header() {
   const dispatch = useAppDispatch();

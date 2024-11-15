@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import { Header } from "../components/Header";
+import { Header } from "../../components/Header/Header";
 import { useEffect } from "react";
-import { getCharacters } from "../api";
-import { useAppDispatch, useAppSelector } from "../store/store";
-import { setCards } from "../store/features/cardsSlice";
-import { Card } from "../components/Card";
-import { arrayTransformation, getFilteredCharacter } from "../helpers";
+import { getCharacters } from "../../api";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { setCards } from "../../store/features/cardsSlice";
+import { Card } from "../../components/Card/Card";
+import { arrayTransformation, getFilteredCharacter } from "../../helpers";
 
 export function Products() {
   const characters = useAppSelector((state) => state.cards.products);

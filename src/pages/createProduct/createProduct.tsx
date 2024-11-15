@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { addCard } from "../store/features/cardsSlice";
-import { isValidUrl, safeString } from "../helpers";
+import { addCard } from "../../store/features/cardsSlice";
+import { isValidUrl, safeString } from "../../helpers";
 
 export function CreateProduct() {
   const [image, setImage] = useState<string>("");
