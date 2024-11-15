@@ -2,11 +2,10 @@ import { Outlet } from "react-router-dom";
 import { Header } from "../components/Header";
 import { useEffect } from "react";
 import { getCharacters } from "../api";
-import { characterFromApi, characterType } from "../types/characterType";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { setCards } from "../store/features/cardsSlice";
 import { Card } from "../components/Card";
-import { getFilteredCharacter } from "../helpers";
+import { arrayTransformation, getFilteredCharacter } from "../helpers";
 
 export function Products() {
   const characters = useAppSelector((state) => state.cards.products);
@@ -18,20 +17,8 @@ export function Products() {
     if (characters.length === 0) {
       getCharacters()
         .then((res) => {
-          console.log(res);
           if (Array.isArray(res.data)) {
-            const newCharacters = res.data.map((el: characterFromApi) => ({
-              _id: el._id,
-              name: el.name,
-              image: el.imageUrl,
-              films: el.films,
-              videoGames: el.videoGames,
-              url: el.sourceUrl,
-              isLiked: false,
-              apiUrl: el.url,
-              tvShows: el.tvShows,
-            }));
-            dispatch(setCards(newCharacters));
+            dispatch(setCards(arrayTransformation(res.data)));
           } else {
             throw new Error("Error fetching characters");
           }

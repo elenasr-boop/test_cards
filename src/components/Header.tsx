@@ -3,7 +3,7 @@ import { useAppDispatch } from "../store/store";
 import { filtration, setCards } from "../store/features/cardsSlice";
 import { useState } from "react";
 import { searchBy } from "../api";
-import { characterFromApi } from "../types/characterType";
+import { arrayTransformation } from "../helpers";
 
 export function Header() {
   const dispatch = useAppDispatch();
@@ -18,22 +18,9 @@ export function Header() {
   }
 
   async function search() {
-    console.log("Выполняю поиск по запросу ", request);
     searchBy(request).then((res) => {
-      console.log(res);
       if (Array.isArray(res.data)) {
-        const newCharacters = res.data.map((el: characterFromApi) => ({
-          _id: el._id,
-          name: el.name,
-          image: el.imageUrl,
-          films: el.films,
-          videoGames: el.videoGames,
-          url: el.sourceUrl,
-          isLiked: false,
-          apiUrl: el.url,
-          tvShows: el.tvShows,
-        }));
-        dispatch(setCards(newCharacters));
+        dispatch(setCards(arrayTransformation(res.data)));
       } else {
         throw new Error("Error fetching characters");
       }

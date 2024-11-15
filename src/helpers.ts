@@ -1,4 +1,4 @@
-import { characterType } from "./types/characterType";
+import { characterFromApi, characterType } from "./types/characterType";
 
 export function safeString(str: string): string {
   return str
@@ -48,4 +48,20 @@ export function getFilteredCharacter (filter: string, characters: characterType[
   }
 
   return filteredCharacters;
+}
+
+export function arrayTransformation (arr: characterFromApi[]): characterType[] {
+  const newCharacters = arr.map((el: characterFromApi) => ({
+    _id: el._id,
+    name: el.name,
+    image: el.imageUrl,
+    films: el.films,
+    videoGames: el.videoGames,
+    url: el.sourceUrl,
+    isLiked: false,
+    apiUrl: el.url,
+    tvShows: el.tvShows,
+  }));
+
+  return newCharacters;
 }
